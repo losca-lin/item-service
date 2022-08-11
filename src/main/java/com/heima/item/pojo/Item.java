@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 
 import java.util.Date;
 
@@ -12,6 +14,8 @@ import java.util.Date;
 @TableName("tb_item")
 public class Item {
     @TableId(type = IdType.AUTO)
+    //标注是canal要处理数据库表的id
+    @Id
     private Long id;//商品id
     private String name;//商品名称
     private String title;//商品标题
@@ -24,7 +28,10 @@ public class Item {
     private Date createTime;//创建时间
     private Date updateTime;//更新时间
     @TableField(exist = false)
+    //标注不属于canal要同步的
+    @Transient
     private Integer stock;
     @TableField(exist = false)
+    @Transient
     private Integer sold;
 }
